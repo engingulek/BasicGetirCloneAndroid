@@ -1,12 +1,13 @@
 package com.example.basicgetirclone.ui.productList
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.basicgetirclone.databinding.SubcategoryViewBinding
 
-class SubCategoryAdapter(var mContext:Context)
+class SubCategoryAdapter(var mContext:Context,var list:List<SubCategory>)
     : RecyclerView.Adapter<SubCategoryAdapter.SubCategoryDesignKeeper>()  {
         inner  class SubCategoryDesignKeeper(design:SubcategoryViewBinding) : RecyclerView.ViewHolder(design.root){
             var design:SubcategoryViewBinding
@@ -22,10 +23,12 @@ class SubCategoryAdapter(var mContext:Context)
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return list.count()
     }
 
     override fun onBindViewHolder(holder: SubCategoryDesignKeeper, position: Int) {
-        holder.design.subCategoryText.text = "test1"
+        val subCategory = list.get(position)
+
+        holder.design.subCategoryText.text = subCategory.name
     }
 }
