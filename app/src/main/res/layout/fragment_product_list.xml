@@ -18,6 +18,9 @@
     <variable
         name="subCategoryAdapter"
         type="com.example.basicgetirclone.ui.productList.SubCategoryAdapter" />
+   <variable
+        name="productAdapter"
+        type="com.example.basicgetirclone.ui.productList.ProductAdapter" />
 </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,6 +63,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/categoryRv" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/productRv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="2dp"
+            android:adapter="@{productAdapter}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/subCategoryRv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

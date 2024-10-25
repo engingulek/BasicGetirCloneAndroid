@@ -9,6 +9,7 @@ import androidx.core.graphics.toColorInt
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 import com.example.basicgetirclone.R
 import com.example.basicgetirclone.databinding.FragmentProductListBinding
@@ -34,15 +35,17 @@ class ProductListFragment : Fragment() {
         viewModel.subCategory.observe(viewLifecycleOwner){
             val subCategoryAdapter = SubCategoryAdapter(requireContext(),it,viewModel)
             design.subCategoryAdapter = subCategoryAdapter
+
+            val productAdapter = ProductAdapter(requireContext())
+            design.productAdapter = productAdapter
         }
-
-
 
         design = DataBindingUtil.inflate(inflater,R.layout.fragment_product_list,container,false)
         design.productListFragment = this
         design.toolbarTitle = getString(R.string.productListTitle)
         design.categoryRv.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         design.subCategoryRv.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        design.productRv.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
 
 
         return  design.root
@@ -53,7 +56,6 @@ class ProductListFragment : Fragment() {
 
         val tempViewModel : ProductListViewModel by viewModels()
         viewModel = tempViewModel
-
 
     }
 }
