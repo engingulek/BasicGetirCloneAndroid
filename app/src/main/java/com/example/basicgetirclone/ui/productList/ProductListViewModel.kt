@@ -20,6 +20,7 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
         uploadCategories()
         productDaoRepo.categories.observeForever { list ->
             categories.value = list
+
         }
         uploadSubCategory(selectedCategoryId)
     }
@@ -40,9 +41,27 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
         }
     }
 
+    private  fun getCategoriesWithoutNullAble() : List<Category> {
+        val categoryList = categories.value ?: emptyList()
+        return  categoryList
+    }
+
     fun onClickCategory(id: Int) {
         selectedCategoryId = id
         uploadSubCategory(selectedCategoryId)
+
+    }
+
+    fun getItemCount() : Int {
+        val categories =  getCategoriesWithoutNullAble()
+        return  categories.size
+    }
+
+    fun onBindViewHolder(position:Int) : Pair<Category,Boolean> {
+        val categoryList =  getCategoriesWithoutNullAble()
+        val  category:Category = categoryList[position]
+        val visibleState:Boolean = category.id == selectedCategoryId
+        return  Pair(category,visibleState)
     }
 }
 
