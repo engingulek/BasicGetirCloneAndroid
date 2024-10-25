@@ -1,13 +1,16 @@
 package com.example.basicgetirclone.ui.productList
 
+import android.annotation.SuppressLint
 import android.content.Context
+import com.example.basicgetirclone.R
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.basicgetirclone.databinding.SubcategoryViewBinding
 
-class SubCategoryAdapter(var mContext:Context,var list:List<SubCategory>)
+class SubCategoryAdapter(var mContext:Context,var list:List<SubCategory>,var viewModel:ProductListViewModel)
     : RecyclerView.Adapter<SubCategoryAdapter.SubCategoryDesignKeeper>()  {
         inner  class SubCategoryDesignKeeper(design:SubcategoryViewBinding) : RecyclerView.ViewHolder(design.root){
             var design:SubcategoryViewBinding
@@ -18,17 +21,23 @@ class SubCategoryAdapter(var mContext:Context,var list:List<SubCategory>)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubCategoryDesignKeeper {
         val layoutInflater = LayoutInflater.from(mContext)
-        val design = SubcategoryViewBinding.inflate(layoutInflater,parent,false)
+        val design:SubcategoryViewBinding = DataBindingUtil.inflate(layoutInflater,R.layout.subcategory_view,parent,false)
         return  SubCategoryDesignKeeper(design)
     }
 
     override fun getItemCount(): Int {
-        return list.count()
+        return viewModel.getItemCountSubCategoryAdapter()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: SubCategoryDesignKeeper, position: Int) {
-        val subCategory = list.get(position)
+        val item = viewModel.onBindViewHolderSubCategoryAdapter(position)
+        holder.design.subCategory = item.first.name
+        holder.design.selectedSubCategoryState = item.second
+        holder.design.subCategoryText.setOnClickListener {
+            viewModel.onClickSubCategory(item.first.id)
+            notifyDataSetChanged()
+        }
 
-        holder.design.subCategoryText.text = subCategory.name
     }
 }

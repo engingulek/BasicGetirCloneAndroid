@@ -30,12 +30,12 @@ class CategoryAdapter(var mContext: Context,var list:List<Category>,var viewMode
     }
 
     override fun getItemCount(): Int {
-        return  viewModel.getItemCount()
+        return  viewModel.getItemCountCategoryAdapter()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: CategoryDesingKeeper, position: Int) {
-        val  item = viewModel.onBindViewHolder(position)
+        val  item = viewModel.onBindViewHolderCategoryAdapter(position)
         holder.design.categoryTitle = item.first.name
         holder.design.selectedCategoryState = item.second
         holder.design.categoryCard.setOnClickListener{

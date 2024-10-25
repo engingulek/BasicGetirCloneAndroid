@@ -15,6 +15,7 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
     var categories = MutableLiveData<List<Category>>()
     var subCategory = MutableLiveData<List<SubCategory>>()
     private var selectedCategoryId: Int = 1
+    private var selectedSubCategoryId:Int = 1
 
     fun onCreate() {
         uploadCategories()
@@ -38,6 +39,7 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
         productDaoRepo.uploadSubCategories(id)
         productDaoRepo.subCategories.observeForever { list ->
             subCategory.value = list
+            selectedSubCategoryId = list.first().id
         }
     }
 
@@ -46,22 +48,43 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
         return  categoryList
     }
 
-    fun onClickCategory(id: Int) {
-        selectedCategoryId = id
-        uploadSubCategory(selectedCategoryId)
-
+    private  fun getSubCategoryWithoutNullAble() : List<SubCategory>{
+        val list = subCategory.value ?: emptyList()
+        return  list
     }
 
-    fun getItemCount() : Int {
+    fun onClickCategory(id: Int) {
+        selectedCategoryId = id
+
+        uploadSubCategory(selectedCategoryId)
+    }
+
+    fun getItemCountCategoryAdapter() : Int {
         val categories =  getCategoriesWithoutNullAble()
         return  categories.size
     }
 
-    fun onBindViewHolder(position:Int) : Pair<Category,Boolean> {
+    fun onBindViewHolderCategoryAdapter(position:Int) : Pair<Category,Boolean> {
         val categoryList =  getCategoriesWithoutNullAble()
         val  category:Category = categoryList[position]
         val visibleState:Boolean = category.id == selectedCategoryId
         return  Pair(category,visibleState)
+    }
+
+    fun getItemCountSubCategoryAdapter() :  Int {
+        val list = getSubCategoryWithoutNullAble()
+        return list.count()
+    }
+
+    fun onBindViewHolderSubCategoryAdapter(position: Int) : Pair<SubCategory,Boolean>{
+        val list = getSubCategoryWithoutNullAble()
+        val subCategory:SubCategory = list[position]
+        val visibleState = subCategory.id == selectedSubCategoryId
+        return Pair(subCategory,visibleState)
+    }
+
+    fun onClickSubCategory(id:Int){
+        selectedSubCategoryId = id
     }
 }
 
