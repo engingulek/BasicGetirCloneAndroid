@@ -9,6 +9,6 @@ data class Category(@SerializedName("id") var id:Int,
 }
 
 data class SubCategory (
-    @SerializedName("id") val id: Long,
+    @SerializedName("id") val id: Int,
     @SerializedName("name")val name: String
 ) : Serializable {}

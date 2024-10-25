@@ -32,7 +32,7 @@ class ProductListFragment : Fragment() {
         }
 
         viewModel.subCategory.observe(viewLifecycleOwner){
-            val subCategoryAdapter = SubCategoryAdapter(requireContext(),it)
+            val subCategoryAdapter = SubCategoryAdapter(requireContext(),it,viewModel)
             design.subCategoryAdapter = subCategoryAdapter
         }
 
