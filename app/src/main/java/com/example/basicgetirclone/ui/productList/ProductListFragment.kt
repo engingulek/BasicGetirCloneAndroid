@@ -36,11 +36,17 @@ class ProductListFragment : Fragment() {
             val subCategoryAdapter = SubCategoryAdapter(requireContext(),it,viewModel)
             design.subCategoryAdapter = subCategoryAdapter
 
-            val productAdapter = ProductAdapter(requireContext())
+
+        }
+
+        viewModel.products.observe(viewLifecycleOwner){
+            val productAdapter = ProductAdapter(requireContext(),viewModel)
             design.productAdapter = productAdapter
+
         }
 
         design = DataBindingUtil.inflate(inflater,R.layout.fragment_product_list,container,false)
+
         design.productListFragment = this
         design.toolbarTitle = getString(R.string.productListTitle)
         design.categoryRv.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)

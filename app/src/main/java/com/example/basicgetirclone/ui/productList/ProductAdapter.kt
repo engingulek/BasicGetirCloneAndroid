@@ -7,8 +7,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.basicgetirclone.databinding.ProductRowDesignBinding
 import com.example.basicgetirclone.R
+import com.squareup.picasso.Picasso
 
-class ProductAdapter(var mContext:Context)
+class ProductAdapter(var mContext:Context,var viewModel: ProductListViewModel)
     : RecyclerView.Adapter<ProductAdapter.ProductDesignKeeper>() {
         inner class ProductDesignKeeper(design:ProductRowDesignBinding)
             :RecyclerView.ViewHolder(design.root){
@@ -25,11 +26,21 @@ class ProductAdapter(var mContext:Context)
     }
 
     override fun getItemCount(): Int {
-        return  10
+        return  viewModel.products.value?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: ProductDesignKeeper, position: Int) {
-        holder.design.Name.text = "name"
-        holder.design.textView2.text = "test"
+        val product = viewModel.products.value?.get(position)
+        holder.design.name.text = product?.name
+        holder.design.price.text = "${product?.price}"
+        holder.design.desc.text = product?.aboutProduct
+
+        Picasso.get()
+            .load(product?.imageURL ?: "")
+            .placeholder(R.drawable.selected_subcategory)
+            .error(R.drawable.ic_launcher_background)
+            .into(holder.design.imageView)
+
+
     }
 }

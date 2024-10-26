@@ -14,6 +14,7 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
 
     var categories = MutableLiveData<List<Category>>()
     var subCategory = MutableLiveData<List<SubCategory>>()
+    var products = MutableLiveData<List<Product>>()
     private var selectedCategoryId: Int = 1
     private var selectedSubCategoryId:Int = 1
 
@@ -22,8 +23,16 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
         productDaoRepo.categories.observeForever { list ->
             categories.value = list
 
+
+        }
+
+        productDaoRepo.products.observeForever { list ->
+            products.value = list
+
         }
         uploadSubCategory(selectedCategoryId)
+        upLoadProduct(selectedSubCategoryId)
+
     }
 
     private fun fetchCategories() {
@@ -33,6 +42,15 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
 
     private fun uploadCategories() {
         fetchCategories()
+    }
+
+    private  fun fetchProduct(id:Int){
+        productDaoRepo.getProducts(id)
+
+    }
+
+    private  fun upLoadProduct(id:Int){
+        fetchProduct(id)
     }
 
     private fun uploadSubCategory(id: Int) {
@@ -85,6 +103,13 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
 
     fun onClickSubCategory(id:Int){
         selectedSubCategoryId = id
+        Log.e("viewModelid","$id")
+        upLoadProduct(id)
+        productDaoRepo.products.observeForever { list ->
+            products.value = list
+            Log.e("Selected Prodıct list","${list}")
+
+        }
     }
 }
 
