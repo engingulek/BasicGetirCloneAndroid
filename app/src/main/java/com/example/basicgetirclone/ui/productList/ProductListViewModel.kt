@@ -3,9 +3,11 @@ package com.example.basicgetirclone.ui.productList
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.basicgetirclone.repo.ProductDaoRepo
 import com.example.basicgetirclone.repo.ProductDaoRepoInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,8 +38,9 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
     }
 
     private fun fetchCategories() {
-        productDaoRepo.getAllCategories()
-
+        viewModelScope.launch {
+            productDaoRepo.getAllCategories()
+        }
     }
 
     private fun uploadCategories() {
@@ -45,8 +48,9 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
     }
 
     private  fun fetchProduct(id:Int){
-        productDaoRepo.getProducts(id)
-
+        viewModelScope.launch {
+            productDaoRepo.getProducts(id)
+        }
     }
 
     private  fun upLoadProduct(id:Int){
@@ -108,7 +112,6 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
         productDaoRepo.products.observeForever { list ->
             products.value = list
             Log.e("Selected Prodıct list","${list}")
-
         }
     }
 }
