@@ -1,15 +1,20 @@
 package com.example.basicgetirclone.ui.productList
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.basicgetirclone.repo.ProductDaoRepo
-import com.example.basicgetirclone.repo.ProductDaoRepoInterface
+import androidx.lifecycle.viewModelScope
+import com.example.basicgetirclone.repo.CategoryRepoInterface
+import com.example.basicgetirclone.repo.ProductRepoInterface
+import com.example.basicgetirclone.ui.productList.models.Category
+import com.example.basicgetirclone.ui.productList.models.Product
+import com.example.basicgetirclone.ui.productList.models.SubCategory
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductListViewModel @Inject constructor(private val productDaoRepo: ProductDaoRepoInterface) :
+class ProductListViewModel @Inject constructor(private val productDaoRepo: ProductRepoInterface,
+                                               private val categoryRepo: CategoryRepoInterface) :
     ViewModel() {
 
     var categories = MutableLiveData<List<Category>>()
@@ -20,96 +25,73 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
 
     fun onCreate() {
         uploadCategories()
-        productDaoRepo.categories.observeForever { list ->
+        categoryRepo.categories.observeForever { list ->
             categories.value = list
 
-
         }
-
         productDaoRepo.products.observeForever { list ->
             products.value = list
 
         }
         uploadSubCategory(selectedCategoryId)
-        upLoadProduct(selectedSubCategoryId)
-
-    }
-
-    private fun fetchCategories() {
-        productDaoRepo.getAllCategories()
-
+        fetchProduct(selectedSubCategoryId)
     }
 
     private fun uploadCategories() {
-        fetchCategories()
+        viewModelScope.launch {
+            categoryRepo.getAllCategories()
+        }
     }
 
     private  fun fetchProduct(id:Int){
-        productDaoRepo.getProducts(id)
-
-    }
-
-    private  fun upLoadProduct(id:Int){
-        fetchProduct(id)
+        viewModelScope.launch {
+            productDaoRepo.getProducts(id)
+        }
     }
 
     private fun uploadSubCategory(id: Int) {
-        productDaoRepo.uploadSubCategories(id)
-        productDaoRepo.subCategories.observeForever { list ->
+        categoryRepo.uploadSubCategories(id)
+        categoryRepo.subCategories.observeForever { list ->
             subCategory.value = list
-            selectedSubCategoryId = list.first().id
+
         }
-    }
-
-    private  fun getCategoriesWithoutNullAble() : List<Category> {
-        val categoryList = categories.value ?: emptyList()
-        return  categoryList
-    }
-
-    private  fun getSubCategoryWithoutNullAble() : List<SubCategory>{
-        val list = subCategory.value ?: emptyList()
-        return  list
     }
 
     fun onClickCategory(id: Int) {
-        selectedCategoryId = id
-
-        uploadSubCategory(selectedCategoryId)
+        categoryRepo.onClickCategory(id)
     }
 
     fun getItemCountCategoryAdapter() : Int {
-        val categories =  getCategoriesWithoutNullAble()
-        return  categories.size
+
+        return  categoryRepo.getItemCountCategoryAdapter()
     }
 
     fun onBindViewHolderCategoryAdapter(position:Int) : Pair<Category,Boolean> {
-        val categoryList =  getCategoriesWithoutNullAble()
-        val  category:Category = categoryList[position]
-        val visibleState:Boolean = category.id == selectedCategoryId
-        return  Pair(category,visibleState)
+        return  categoryRepo.onBindViewHolderCategoryAdapter(position)
     }
 
     fun getItemCountSubCategoryAdapter() :  Int {
-        val list = getSubCategoryWithoutNullAble()
-        return list.count()
+        return categoryRepo.getItemCountSubCategoryAdapter()
     }
 
     fun onBindViewHolderSubCategoryAdapter(position: Int) : Pair<SubCategory,Boolean>{
-        val list = getSubCategoryWithoutNullAble()
-        val subCategory:SubCategory = list[position]
-        val visibleState = subCategory.id == selectedSubCategoryId
-        return Pair(subCategory,visibleState)
+        return categoryRepo.onBindViewHolderSubCategoryAdapter(position)
     }
 
     fun onClickSubCategory(id:Int){
-        selectedSubCategoryId = id
-        Log.e("viewModelid","$id")
-        upLoadProduct(id)
+        categoryRepo.onClickSubCategory(id)
+        fetchProduct(id)
         productDaoRepo.products.observeForever { list ->
             products.value = list
-            Log.e("Selected Prodıct list","${list}")
-
         }
+    }
+
+    fun getItemCountProductAdapter() : Int{
+        return productDaoRepo.getItemCount()
+    }
+
+    fun onBindViewHolderProductAdapter(position:Int) : Product {
+        return productDaoRepo.onBindViewHolder(position)
     }
 }
 

@@ -1,4 +1,4 @@
-package com.example.basicgetirclone.ui.productList
+package com.example.basicgetirclone.ui.productList.models
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

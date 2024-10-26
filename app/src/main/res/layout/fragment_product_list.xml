@@ -14,13 +14,13 @@
 
     <variable
         name="categoryAdapter"
-        type="com.example.basicgetirclone.ui.productList.CategoryAdapter" />
+        type="com.example.basicgetirclone.ui.productList.adapters.CategoryAdapter" />
     <variable
         name="subCategoryAdapter"
-        type="com.example.basicgetirclone.ui.productList.SubCategoryAdapter" />
+        type="com.example.basicgetirclone.ui.productList.adapters.SubCategoryAdapter" />
    <variable
         name="productAdapter"
-        type="com.example.basicgetirclone.ui.productList.ProductAdapter" />
+        type="com.example.basicgetirclone.ui.productList.adapters.ProductAdapter" />
 </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
