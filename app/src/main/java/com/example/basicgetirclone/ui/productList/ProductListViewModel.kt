@@ -7,13 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.basicgetirclone.repo.CategoryRepo
 import com.example.basicgetirclone.repo.CategoryRepoInterface
 import com.example.basicgetirclone.repo.ProductDaoRepo
-import com.example.basicgetirclone.repo.ProductDaoRepoInterface
+import com.example.basicgetirclone.repo.ProductRepoInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductListViewModel @Inject constructor(private val productDaoRepo: ProductDaoRepoInterface,private val categoryRepo: CategoryRepoInterface) :
+class ProductListViewModel @Inject constructor(private val productDaoRepo: ProductRepoInterface,
+                                               private val categoryRepo: CategoryRepoInterface) :
     ViewModel() {
 
     var categories = MutableLiveData<List<Category>>()
@@ -28,14 +29,12 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
             categories.value = list
 
         }
-
         productDaoRepo.products.observeForever { list ->
             products.value = list
 
         }
         uploadSubCategory(selectedCategoryId)
         fetchProduct(selectedSubCategoryId)
-
     }
 
     private fun uploadCategories() {
@@ -49,8 +48,6 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
             productDaoRepo.getProducts(id)
         }
     }
-
-
 
     private fun uploadSubCategory(id: Int) {
         categoryRepo.uploadSubCategories(id)
@@ -87,6 +84,14 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
         productDaoRepo.products.observeForever { list ->
             products.value = list
         }
+    }
+
+    fun getItemCountProductAdapter() : Int{
+        return productDaoRepo.getItemCount()
+    }
+
+    fun onBindViewHolderProductAdapter(position:Int) : Product {
+        return productDaoRepo.onBindViewHolder(position)
     }
 }
 

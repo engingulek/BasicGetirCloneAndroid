@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.basicgetirclone.R
 import com.example.basicgetirclone.databinding.FragmentProductListBinding
 import com.example.basicgetirclone.repo.ProductDaoRepo
-import com.example.basicgetirclone.repo.ProductDaoRepoInterface
+
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

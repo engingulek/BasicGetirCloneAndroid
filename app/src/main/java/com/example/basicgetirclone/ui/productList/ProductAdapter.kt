@@ -26,21 +26,20 @@ class ProductAdapter(var mContext:Context,var viewModel: ProductListViewModel)
     }
 
     override fun getItemCount(): Int {
-        return  viewModel.products.value?.size ?: 0
+        return  viewModel.getItemCountProductAdapter()
     }
 
     override fun onBindViewHolder(holder: ProductDesignKeeper, position: Int) {
-        val product = viewModel.products.value?.get(position)
-        holder.design.name.text = product?.name
-        holder.design.price.text = "${product?.price}"
-        holder.design.desc.text = product?.aboutProduct
+        val product = viewModel.onBindViewHolderProductAdapter(position)
+        holder.design.name.text = product.name
+        holder.design.price.text = "${product.price}"
+        holder.design.desc.text = product.aboutProduct
 
         Picasso.get()
-            .load(product?.imageURL ?: "")
+            .load(product.imageURL ?: "")
             .placeholder(R.drawable.selected_subcategory)
             .error(R.drawable.ic_launcher_background)
             .into(holder.design.imageView)
-
-
+        
     }
 }

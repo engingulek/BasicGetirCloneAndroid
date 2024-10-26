@@ -3,7 +3,7 @@ package com.example.basicgetirclone.di
 import com.example.basicgetirclone.repo.CategoryRepo
 import com.example.basicgetirclone.repo.CategoryRepoInterface
 import com.example.basicgetirclone.repo.ProductDaoRepo
-import com.example.basicgetirclone.repo.ProductDaoRepoInterface
+import com.example.basicgetirclone.repo.ProductRepoInterface
 import com.example.basicgetirclone.retrofit.ApiUtils
 import com.example.basicgetirclone.retrofit.CategoryDao
 import com.example.basicgetirclone.ui.productList.ProductListPageService
@@ -20,9 +20,9 @@ import javax.inject.Singleton
 class AppModule {
     @Provides
     @Singleton
-    fun provideProductRepo(cdo:CategoryDao) : ProductDaoRepoInterface {
+    fun provideProductRepo(cdo:CategoryDao) : ProductRepoInterface {
         val serivce : ProductListPageServiceInterface = ProductListPageService(cdo)
-        val repo : ProductDaoRepoInterface = ProductDaoRepo(serivce)
+        val repo : ProductRepoInterface = ProductDaoRepo(serivce)
         return  repo
     }
 
