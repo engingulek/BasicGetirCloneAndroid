@@ -2,9 +2,8 @@ package com.example.basicgetirclone.ui.productList
 
 import com.example.basicgetirclone.retrofit.CategoryDao
 import com.example.basicgetirclone.retrofit.NetworkError
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.basicgetirclone.ui.productList.models.Category
+import com.example.basicgetirclone.ui.productList.models.Product
 import retrofit2.awaitResponse
 
 sealed class ResultData<out T> {

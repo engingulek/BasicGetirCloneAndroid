@@ -2,10 +2,10 @@ package com.example.basicgetirclone.repo
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.basicgetirclone.ui.productList.Category
+import com.example.basicgetirclone.ui.productList.models.Category
 import com.example.basicgetirclone.ui.productList.ProductListPageServiceInterface
 import com.example.basicgetirclone.ui.productList.ResultData
-import com.example.basicgetirclone.ui.productList.SubCategory
+import com.example.basicgetirclone.ui.productList.models.SubCategory
 
 interface CategoryRepoInterface {
     var categories: MutableLiveData<List<Category>>
@@ -69,13 +69,13 @@ class CategoryRepo(private var productListService: ProductListPageServiceInterfa
 
     override  fun onBindViewHolderCategoryAdapter(position:Int) : Pair<Category,Boolean> {
         val categoryList =  getCategoriesWithoutNullAble()
-        val  category:Category = categoryList[position]
+        val  category: Category = categoryList[position]
         val visibleState:Boolean = category.id == selectedCategoryId
         return  Pair(category,visibleState)
     }
     override fun onBindViewHolderSubCategoryAdapter(position: Int) : Pair<SubCategory,Boolean> {
         val list = getSubCategoryWithoutNullAble()
-        val subCategory:SubCategory = list[position]
+        val subCategory: SubCategory = list[position]
         val visibleState = subCategory.id == selectedSubCategoryId
         return Pair(subCategory,visibleState)
     }

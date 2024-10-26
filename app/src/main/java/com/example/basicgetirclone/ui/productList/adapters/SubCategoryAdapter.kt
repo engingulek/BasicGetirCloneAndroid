@@ -1,16 +1,17 @@
-package com.example.basicgetirclone.ui.productList
+package com.example.basicgetirclone.ui.productList.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
 import com.example.basicgetirclone.R
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.basicgetirclone.databinding.SubcategoryViewBinding
+import com.example.basicgetirclone.ui.productList.ProductListViewModel
+import com.example.basicgetirclone.ui.productList.models.SubCategory
 
-class SubCategoryAdapter(var mContext:Context,var list:List<SubCategory>,var viewModel:ProductListViewModel)
+class SubCategoryAdapter(var mContext:Context, var list:List<SubCategory>, var viewModel: ProductListViewModel)
     : RecyclerView.Adapter<SubCategoryAdapter.SubCategoryDesignKeeper>()  {
         inner  class SubCategoryDesignKeeper(design:SubcategoryViewBinding) : RecyclerView.ViewHolder(design.root){
             var design:SubcategoryViewBinding

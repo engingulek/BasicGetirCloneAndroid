@@ -1,4 +1,4 @@
-package com.example.basicgetirclone.ui.productList
+package com.example.basicgetirclone.ui.productList.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.basicgetirclone.databinding.ProductRowDesignBinding
 import com.example.basicgetirclone.R
+import com.example.basicgetirclone.ui.productList.ProductListViewModel
 import com.squareup.picasso.Picasso
 
 class ProductAdapter(var mContext:Context,var viewModel: ProductListViewModel)

@@ -2,7 +2,7 @@ package com.example.basicgetirclone.repo
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.basicgetirclone.ui.productList.Product
+import com.example.basicgetirclone.ui.productList.models.Product
 import com.example.basicgetirclone.ui.productList.ProductListPageServiceInterface
 import com.example.basicgetirclone.ui.productList.ResultData
 
@@ -41,7 +41,7 @@ class ProductDaoRepo (private var productListService: ProductListPageServiceInte
 
     override fun onBindViewHolder(position: Int) : Product {
         val list = getItemProductWithoutNullAble()
-        val product:Product = list[position]
+        val product: Product = list[position]
         return product
     }
 }

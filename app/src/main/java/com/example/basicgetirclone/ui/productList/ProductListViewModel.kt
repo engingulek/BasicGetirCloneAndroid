@@ -1,13 +1,13 @@
 package com.example.basicgetirclone.ui.productList
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.basicgetirclone.repo.CategoryRepo
 import com.example.basicgetirclone.repo.CategoryRepoInterface
-import com.example.basicgetirclone.repo.ProductDaoRepo
 import com.example.basicgetirclone.repo.ProductRepoInterface
+import com.example.basicgetirclone.ui.productList.models.Category
+import com.example.basicgetirclone.ui.productList.models.Product
+import com.example.basicgetirclone.ui.productList.models.SubCategory
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

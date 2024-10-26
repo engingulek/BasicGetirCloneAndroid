@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.graphics.toColorInt
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,7 +12,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 import com.example.basicgetirclone.R
 import com.example.basicgetirclone.databinding.FragmentProductListBinding
-import com.example.basicgetirclone.repo.ProductDaoRepo
+import com.example.basicgetirclone.ui.productList.adapters.CategoryAdapter
+import com.example.basicgetirclone.ui.productList.adapters.ProductAdapter
+import com.example.basicgetirclone.ui.productList.adapters.SubCategoryAdapter
 
 import dagger.hilt.android.AndroidEntryPoint
 
