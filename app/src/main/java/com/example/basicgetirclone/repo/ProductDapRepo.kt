@@ -65,18 +65,5 @@ class ProductDaoRepo (private var productListService: ProductListPageServiceInte
                 Log.e("ResultDataError","${result.error.toString()}")
             }
         }
-        /*cdo.getProductBySubCategoryId(id).enqueue(object :Callback<List<Product>>{
-            override fun onResponse(call: Call<List<Product>>,
-                                    response: Response<List<Product>>) {
-                val list = response.body()
-                products.value = list ?: emptyList()
-                Log.e("Repo List","$id")
-            }
-
-            override fun onFailure(call: Call<List<Product>>, t: Throwable) {
-
-            }
-
-        })*/
     }
 }

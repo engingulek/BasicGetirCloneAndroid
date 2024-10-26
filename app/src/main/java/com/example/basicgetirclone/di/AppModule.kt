@@ -1,5 +1,7 @@
 package com.example.basicgetirclone.di
 
+import com.example.basicgetirclone.repo.CategoryRepo
+import com.example.basicgetirclone.repo.CategoryRepoInterface
 import com.example.basicgetirclone.repo.ProductDaoRepo
 import com.example.basicgetirclone.repo.ProductDaoRepoInterface
 import com.example.basicgetirclone.retrofit.ApiUtils
@@ -21,6 +23,14 @@ class AppModule {
     fun provideProductRepo(cdo:CategoryDao) : ProductDaoRepoInterface {
         val serivce : ProductListPageServiceInterface = ProductListPageService(cdo)
         val repo : ProductDaoRepoInterface = ProductDaoRepo(serivce)
+        return  repo
+    }
+
+    @Provides
+    @Singleton
+    fun provşdeCatagoryRepo(cdo:CategoryDao) : CategoryRepoInterface {
+        val serivce : ProductListPageServiceInterface = ProductListPageService(cdo)
+        val repo : CategoryRepoInterface = CategoryRepo(serivce)
         return  repo
     }
 
