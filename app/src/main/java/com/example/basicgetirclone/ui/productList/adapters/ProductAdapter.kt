@@ -4,11 +4,15 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.basicgetirclone.databinding.ProductRowDesignBinding
 import com.example.basicgetirclone.R
+import com.example.basicgetirclone.ui.productList.ProductListFragmentDirections
 import com.example.basicgetirclone.ui.productList.ProductListViewModel
+import com.example.basicgetirclone.utils.Utils
 import com.squareup.picasso.Picasso
+import okhttp3.internal.Util
 
 class ProductAdapter(var mContext:Context,var viewModel: ProductListViewModel)
     : RecyclerView.Adapter<ProductAdapter.ProductDesignKeeper>() {
@@ -36,11 +40,13 @@ class ProductAdapter(var mContext:Context,var viewModel: ProductListViewModel)
         holder.design.price.text = "${product.price}"
         holder.design.desc.text = product.aboutProduct
 
-        Picasso.get()
-            .load(product.imageURL ?: "")
-            .placeholder(R.drawable.selected_subcategory)
-            .error(R.drawable.ic_launcher_background)
-            .into(holder.design.imageView)
+        Utils.covertToPicasso(product.imageURL,holder.design.imageView)
+
+
+        holder.design.constraint.setOnClickListener {
+            val nav = ProductListFragmentDirections.toDetailFragment(product)
+            Navigation.findNavController(it).navigate(nav)
+        }
         
     }
 }

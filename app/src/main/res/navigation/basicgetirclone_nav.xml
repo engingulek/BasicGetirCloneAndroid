@@ -9,5 +9,18 @@
         android:id="@+id/productListFragment"
         android:name="com.example.basicgetirclone.ui.productList.ProductListFragment"
         android:label="fragment_product_list"
-        tools:layout="@layout/fragment_product_list" />
+        tools:layout="@layout/fragment_product_list" >
+        <action
+            android:id="@+id/toDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.example.basicgetirclone.ui.productDetail.ProductDetailFragment"
+        android:label="fragment_product_detail"
+        tools:layout="@layout/fragment_product_detail" >
+        <argument
+            android:name="Product"
+            app:argType="com.example.basicgetirclone.ui.productList.models.Product" />
+    </fragment>
 </navigation>

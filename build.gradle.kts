@@ -7,6 +7,7 @@ buildscript{
     }
     dependencies{
         classpath(libs.hilt.android.gradle.plugin)
+        classpath("androidx.navigation.safeargs:androidx.navigation.safeargs.gradle.plugin:2.8.3")
     }
 }
 
