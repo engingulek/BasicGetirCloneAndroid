@@ -13,6 +13,9 @@
         <action
             android:id="@+id/toDetailFragment"
             app:destination="@id/productDetailFragment" />
+        <action
+            android:id="@+id/toCart"
+            app:destination="@id/cartFragment" />
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
@@ -23,4 +26,10 @@
             android:name="Product"
             app:argType="com.example.basicgetirclone.ui.productList.models.Product" />
     </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.basicgetirclone.ui.cart.CartFragment"
+        android:label="CartFragment"
+        tools:layout="@layout/fragment_cart"
+        />
 </navigation>
