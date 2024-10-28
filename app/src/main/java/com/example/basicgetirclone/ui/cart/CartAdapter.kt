@@ -31,10 +31,7 @@ class CartAdapter(var mContext: Context,private val viewModel:CartViewModel)
 
     override fun onBindViewHolder(holder: CartDesingKeeper, position: Int) {
         val cartProduct = viewModel.onBindViewHolder(position)
-        holder.design.nameTxv.text = cartProduct.name
-        holder.design.priceTxv.text = "${cartProduct.price}"
-        holder.design.descTxv.text = cartProduct.aboutProduct
-        holder.design.countTxv.text = "${cartProduct.quantity}"
+        holder.design.cartProduct = cartProduct
         Utils.covertToPicasso(cartProduct.imageURL,holder.design.productImv)
 
     }
