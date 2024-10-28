@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 <data>
+    <import type="android.view.View"/>
     <variable
         name="toolbarTitle"
         type="String" />
@@ -21,6 +22,9 @@
    <variable
         name="productAdapter"
         type="com.example.basicgetirclone.ui.productList.adapters.ProductAdapter" />
+    <variable
+        name="totalAmount"
+        type="Double" />
 </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -67,7 +71,7 @@
                     android:id="@+id/constraintcart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:visibility="@{totalAmount == 0.0 ? View.INVISIBLE : View.VISIBLE}"
                     android:layout_gravity="end"
                     android:layout_marginEnd="10dp"
                     android:background="@drawable/cart_constraint_back"
@@ -96,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="15dp"
-                        android:text="20.5 Tl"
+                        android:text='@{String.valueOf(totalAmount)}'
                         android:textColor="@color/primaryBackColor"
                         android:textSize="16sp"
                         android:textStyle="bold"

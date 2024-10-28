@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.basicgetirclone.R
 import com.example.basicgetirclone.databinding.FragmentCartBinding
@@ -27,8 +28,12 @@ class CartFragment : Fragment() {
             val adapter = CartAdapter(requireContext(),viewModel)
             design.cartAdapter = adapter
         }
+        viewModel.total.observe(viewLifecycleOwner){
+            design.totalTxv.text = "${it}"
+        }
         design = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false)
-
+        design.cartToolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24)
+        design.cartToolbar.setNavigationOnClickListener {findNavController().navigateUp() }
         design.cartFragment = this
 
         design.cartrcv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

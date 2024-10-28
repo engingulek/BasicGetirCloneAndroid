@@ -13,11 +13,15 @@ import javax.inject.Inject
 class CartViewModel @Inject constructor(private val cartRepo: CartRepoInterface )
     : ViewModel() {
         var cartProducts = MutableLiveData<List<CartProduct>>()
+        var total = MutableLiveData<Double>(0.0)
 
     fun onCreate() {
         fetchCartProduct(1)
         cartRepo.cartProducts.observeForever { list ->
             cartProducts.value = list
+        }
+        cartRepo.totalAmount.observeForever {
+            total.value = it
         }
     }
 
@@ -34,5 +38,17 @@ class CartViewModel @Inject constructor(private val cartRepo: CartRepoInterface 
 
     fun onBindViewHolder(position:Int): CartProduct{
         return cartRepo.onBindViewHolder(position)
+    }
+
+    fun decreamentOnCLick(cartId:Int){
+        viewModelScope.launch {
+            cartRepo.decreaseProductFromCart(cartId)
+        }
+    }
+
+    fun increamentOnClick(cartId:Int){
+        viewModelScope.launch {
+            cartRepo.incrementProduct(cartId)
+        }
     }
 }

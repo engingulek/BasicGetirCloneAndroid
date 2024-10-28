@@ -7,6 +7,9 @@ import retrofit2.awaitResponse
 
 interface CartServiceInterface {
     suspend fun  fetchProductFromCart(userId:Int) : ResultData<List<CartProduct>>
+    suspend fun addProductToCart(product:ProductRequest) : Boolean
+    suspend fun decreaseProductFromCart(cartId:Int) : Boolean
+    suspend fun increaseProduct(cartId: Int) : Boolean
 }
 
 
@@ -29,4 +32,30 @@ class CartService(private val bdo:BaseDao) : CartServiceInterface {
         }
     }
 
+    override suspend fun addProductToCart(product: ProductRequest) : Boolean {
+        return try {
+            val response = bdo.addProduct(product).awaitResponse()
+            response.isSuccessful
+        }catch (e :Exception){
+            true
+        }
+    }
+
+    override suspend fun decreaseProductFromCart(cartId: Int) : Boolean {
+        return try {
+            val response = bdo.decreaseProductFromCart(cartId).awaitResponse()
+            response.isSuccessful
+        }catch (e :Exception){
+            true
+        }
+    }
+
+    override suspend fun increaseProduct(cartId: Int): Boolean {
+        return try {
+            val response = bdo.incrementProduct(cartId).awaitResponse()
+            response.isSuccessful
+        }catch (e :Exception){
+            true
+        }
+    }
 }

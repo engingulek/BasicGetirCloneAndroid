@@ -1,5 +1,6 @@
 package com.example.basicgetirclone.ui.productList.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -34,18 +35,30 @@ class ProductAdapter(var mContext:Context,var viewModel: ProductListViewModel)
         return  viewModel.getItemCountProductAdapter()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: ProductDesignKeeper, position: Int) {
-        val product = viewModel.onBindViewHolderProductAdapter(position)
-        holder.design.name.text = product.name
-        holder.design.price.text = "${product.price}"
-        holder.design.desc.text = product.aboutProduct
+        holder.design.visibilityStatus = false
+        val item = viewModel.onBindViewHolderProductAdapter(position)
+        holder.design.product = item.first
+        holder.design.visibilityStatus = item.second
+        Utils.covertToPicasso(item.first.imageURL,holder.design.imageView)
+        holder.design.addTxv.setOnClickListener {
+            val productId = item.first.id
+            val userId = 1
+            viewModel.onClickAdd(productId,userId)
+            notifyDataSetChanged()
+        }
 
-        Utils.covertToPicasso(product.imageURL,holder.design.imageView)
+        holder.design.decreaseTxv.setOnClickListener {
+            viewModel.decreaseProduct(item.first.id)
+            notifyDataSetChanged()
+        }
 
 
         holder.design.constraint.setOnClickListener {
-            val nav = ProductListFragmentDirections.toDetailFragment(product)
+            val nav = ProductListFragmentDirections.toDetailFragment(item.first)
             Navigation.findNavController(it).navigate(nav)
+            notifyDataSetChanged()
         }
         
     }
