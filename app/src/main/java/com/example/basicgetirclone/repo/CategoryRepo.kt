@@ -2,9 +2,10 @@ package com.example.basicgetirclone.repo
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.example.basicgetirclone.retrofit.ResultData
 import com.example.basicgetirclone.ui.productList.models.Category
 import com.example.basicgetirclone.ui.productList.ProductListPageServiceInterface
-import com.example.basicgetirclone.ui.productList.ResultData
+
 import com.example.basicgetirclone.ui.productList.models.SubCategory
 
 interface CategoryRepoInterface {

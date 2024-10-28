@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="16dp" /> <!-- İstediğiniz köşe yarıçapını burada ayarlayın -->
+    <solid android:color="@color/white" /> <!-- Arka plan rengini ayarlayın -->
+</shape>

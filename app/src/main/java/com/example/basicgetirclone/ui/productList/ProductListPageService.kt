@@ -1,25 +1,23 @@
 package com.example.basicgetirclone.ui.productList
 
-import com.example.basicgetirclone.retrofit.CategoryDao
+import com.example.basicgetirclone.retrofit.BaseDao
 import com.example.basicgetirclone.retrofit.NetworkError
+import com.example.basicgetirclone.retrofit.ResultData
 import com.example.basicgetirclone.ui.productList.models.Category
 import com.example.basicgetirclone.ui.productList.models.Product
 import retrofit2.awaitResponse
 
-sealed class ResultData<out T> {
-    data class Success<out T>(val data: T) : ResultData<T>()
-    data class Error(val error: NetworkError) : ResultData<Nothing>()
-}
+
 
 interface ProductListPageServiceInterface {
     suspend fun fetchCategories(): ResultData<List<Category>>
     suspend fun fetchProducts(id:Int) : ResultData<List<Product>>
 }
 
-class ProductListPageService(private val cdo: CategoryDao) : ProductListPageServiceInterface {
+class ProductListPageService(private val bdo: BaseDao) : ProductListPageServiceInterface {
     override suspend fun fetchCategories(): ResultData<List<Category>> {
         return try {
-            val response = cdo.allCategoriesGet().awaitResponse()
+            val response = bdo.allCategoriesGet().awaitResponse()
             if (response.isSuccessful) {
                 val categories = response.body() ?: emptyList()
                 ResultData.Success(categories)
@@ -37,7 +35,7 @@ class ProductListPageService(private val cdo: CategoryDao) : ProductListPageServ
 
     override suspend fun fetchProducts(id:Int): ResultData<List<Product>> {
         return try {
-            val response = cdo.getProductBySubCategoryId(id).awaitResponse()
+            val response = bdo.getProductBySubCategoryId(id).awaitResponse()
             if (response.isSuccessful) {
                 val categories = response.body() ?: emptyList()
                 ResultData.Success(categories)
