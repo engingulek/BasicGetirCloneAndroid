@@ -3,8 +3,10 @@ package com.example.basicgetirclone.ui.productList
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.basicgetirclone.repo.CartRepoInterface
 import com.example.basicgetirclone.repo.CategoryRepoInterface
 import com.example.basicgetirclone.repo.ProductRepoInterface
+import com.example.basicgetirclone.ui.cart.CartProduct
 import com.example.basicgetirclone.ui.productList.models.Category
 import com.example.basicgetirclone.ui.productList.models.Product
 import com.example.basicgetirclone.ui.productList.models.SubCategory
@@ -14,12 +16,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProductListViewModel @Inject constructor(private val productDaoRepo: ProductRepoInterface,
-                                               private val categoryRepo: CategoryRepoInterface) :
+                                               private val categoryRepo: CategoryRepoInterface,
+                                               private val cartRepo:CartRepoInterface
+    ) :
     ViewModel() {
 
     var categories = MutableLiveData<List<Category>>()
     var subCategory = MutableLiveData<List<SubCategory>>()
     var products = MutableLiveData<List<Product>>()
+    private var cartProduct = MutableLiveData<List<CartProduct>>()
     private var selectedCategoryId: Int = 1
     private var selectedSubCategoryId:Int = 1
 
@@ -33,8 +38,14 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
             products.value = list
 
         }
+
+        cartRepo.cartProducts.observeForever { list ->
+            cartProduct.value = list
+        }
+
         uploadSubCategory(selectedCategoryId)
         fetchProduct(selectedSubCategoryId)
+        fetcHCartRepo()
     }
 
     private fun uploadCategories() {
@@ -46,6 +57,12 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
     private  fun fetchProduct(id:Int){
         viewModelScope.launch {
             productDaoRepo.getProducts(id)
+        }
+    }
+
+    private fun fetcHCartRepo(){
+        viewModelScope.launch {
+            cartRepo.getCartProducts(1)
         }
     }
 
@@ -90,9 +107,18 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
         return productDaoRepo.getItemCount()
     }
 
-    fun onBindViewHolderProductAdapter(position:Int) : Product {
-        return productDaoRepo.onBindViewHolder(position)
+    fun onBindViewHolderProductAdapter(position:Int) : Pair<Product,Boolean> {
+        val productL = productDaoRepo.onBindViewHolder(position)
+        val list = cartProduct.value ?: emptyList()
+        val matchedProduct = list.firstOrNull { it.productID == productL.id }
+        if (matchedProduct != null){
+            productL.piece = matchedProduct.quantity
+            return Pair(productL,true)
+        }else{
+            return   Pair(productL,false)
+        }
     }
+
 }
 
 

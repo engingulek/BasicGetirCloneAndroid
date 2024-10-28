@@ -35,16 +35,15 @@ class ProductAdapter(var mContext:Context,var viewModel: ProductListViewModel)
     }
 
     override fun onBindViewHolder(holder: ProductDesignKeeper, position: Int) {
-        val product = viewModel.onBindViewHolderProductAdapter(position)
-        holder.design.name.text = product.name
-        holder.design.price.text = "${product.price}"
-        holder.design.desc.text = product.aboutProduct
-
-        Utils.covertToPicasso(product.imageURL,holder.design.imageView)
+        holder.design.visibilityStatus = false
+        val item = viewModel.onBindViewHolderProductAdapter(position)
+        holder.design.product = item.first
+        holder.design.visibilityStatus = item.second
+        Utils.covertToPicasso(item.first.imageURL,holder.design.imageView)
 
 
         holder.design.constraint.setOnClickListener {
-            val nav = ProductListFragmentDirections.toDetailFragment(product)
+            val nav = ProductListFragmentDirections.toDetailFragment(item.first)
             Navigation.findNavController(it).navigate(nav)
         }
         
