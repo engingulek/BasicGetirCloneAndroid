@@ -13,14 +13,15 @@
 
             <ImageView
                 android:id="@+id/productImv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
@@ -28,19 +29,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
                 android:text="Name"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/productImv"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/productImv" />
 
             <TextView
                 android:id="@+id/descTxv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="8dp"
                 android:text="Desc"
                 app:layout_constraintStart_toEndOf="@+id/productImv"
                 app:layout_constraintTop_toBottomOf="@+id/nameTxv" />
@@ -50,12 +50,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
                 android:text="7.25TL"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/productImv"
-                app:layout_constraintTop_toBottomOf="@+id/descTxv" />
+                app:layout_constraintBottom_toBottomOf="@+id/productImv"
+                app:layout_constraintStart_toEndOf="@+id/productImv" />
 
             <TextView
                 android:id="@+id/increase"
@@ -73,7 +72,7 @@
                 app:layout_constraintVertical_bias="0.5" />
 
             <TextView
-                android:id="@+id/count"
+                android:id="@+id/countTxv"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@color/primaryBackColor"
@@ -97,7 +96,7 @@
                 android:textColor="@color/primaryBackColor"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/count"
+                app:layout_constraintEnd_toStartOf="@+id/countTxv"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5" />
 

@@ -7,8 +7,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.basicgetirclone.databinding.CartViewDesignBinding
 import com.example.basicgetirclone.R
+import com.example.basicgetirclone.utils.Utils
 
-class CartAdapter(var mContext: Context)
+class CartAdapter(var mContext: Context,private val viewModel:CartViewModel)
     : RecyclerView.Adapter<CartAdapter.CartDesingKeeper>() {
         inner  class CartDesingKeeper(design:CartViewDesignBinding)
             :RecyclerView.ViewHolder(design.root){
@@ -25,10 +26,16 @@ class CartAdapter(var mContext: Context)
     }
 
     override fun getItemCount(): Int {
-        return  10
+        return  viewModel.getItemCount()
     }
 
     override fun onBindViewHolder(holder: CartDesingKeeper, position: Int) {
+        val cartProduct = viewModel.onBindViewHolder(position)
+        holder.design.nameTxv.text = cartProduct.name
+        holder.design.priceTxv.text = "${cartProduct.price}"
+        holder.design.descTxv.text = cartProduct.aboutProduct
+        holder.design.countTxv.text = "${cartProduct.quantity}"
+        Utils.covertToPicasso(cartProduct.imageURL,holder.design.productImv)
 
     }
 }
