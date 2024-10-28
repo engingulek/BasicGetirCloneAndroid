@@ -33,6 +33,15 @@ class CartAdapter(var mContext: Context,private val viewModel:CartViewModel)
         val cartProduct = viewModel.onBindViewHolder(position)
         holder.design.cartProduct = cartProduct
         Utils.covertToPicasso(cartProduct.imageURL,holder.design.productImv)
+        holder.design.decrease.setOnClickListener {
+            viewModel.decreamentOnCLick(cartProduct.id)
+            notifyDataSetChanged()
+        }
+
+        holder.design.increase.setOnClickListener {
+            viewModel.increamentOnClick(cartProduct.id)
+            notifyDataSetChanged()
+        }
 
     }
 }

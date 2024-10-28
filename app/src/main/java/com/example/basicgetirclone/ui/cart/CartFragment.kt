@@ -28,6 +28,9 @@ class CartFragment : Fragment() {
             val adapter = CartAdapter(requireContext(),viewModel)
             design.cartAdapter = adapter
         }
+        viewModel.total.observe(viewLifecycleOwner){
+            design.totalTxv.text = "${it}"
+        }
         design = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false)
         design.cartToolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24)
         design.cartToolbar.setNavigationOnClickListener {findNavController().navigateUp() }

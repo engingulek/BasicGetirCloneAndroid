@@ -3,6 +3,7 @@ package com.example.basicgetirclone.ui.productList
 import com.example.basicgetirclone.retrofit.BaseDao
 import com.example.basicgetirclone.retrofit.NetworkError
 import com.example.basicgetirclone.retrofit.ResultData
+import com.example.basicgetirclone.ui.cart.ProductRequest
 import com.example.basicgetirclone.ui.productList.models.Category
 import com.example.basicgetirclone.ui.productList.models.Product
 import retrofit2.awaitResponse
@@ -50,5 +51,7 @@ class ProductListPageService(private val bdo: BaseDao) : ProductListPageServiceI
             ResultData.Error(NetworkError.UnexpectedError)
         }
     }
+
+
 }
 

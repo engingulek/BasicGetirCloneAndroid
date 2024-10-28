@@ -44,7 +44,10 @@ class ProductListFragment : Fragment() {
         viewModel.products.observe(viewLifecycleOwner){
             val productAdapter = ProductAdapter(requireContext(),viewModel)
             design.productAdapter = productAdapter
+        }
 
+        viewModel.total.observe(viewLifecycleOwner){
+            design.totalAmount = it
         }
 
         design = DataBindingUtil.inflate(inflater,R.layout.fragment_product_list,container,false)

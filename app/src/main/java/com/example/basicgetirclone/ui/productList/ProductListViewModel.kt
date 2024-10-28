@@ -7,6 +7,7 @@ import com.example.basicgetirclone.repo.CartRepoInterface
 import com.example.basicgetirclone.repo.CategoryRepoInterface
 import com.example.basicgetirclone.repo.ProductRepoInterface
 import com.example.basicgetirclone.ui.cart.CartProduct
+import com.example.basicgetirclone.ui.cart.ProductRequest
 import com.example.basicgetirclone.ui.productList.models.Category
 import com.example.basicgetirclone.ui.productList.models.Product
 import com.example.basicgetirclone.ui.productList.models.SubCategory
@@ -25,6 +26,7 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
     var subCategory = MutableLiveData<List<SubCategory>>()
     var products = MutableLiveData<List<Product>>()
     private var cartProduct = MutableLiveData<List<CartProduct>>()
+    var total = MutableLiveData<Double>(0.0)
     private var selectedCategoryId: Int = 1
     private var selectedSubCategoryId:Int = 1
 
@@ -41,6 +43,9 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
 
         cartRepo.cartProducts.observeForever { list ->
             cartProduct.value = list
+        }
+        cartRepo.totalAmount.observeForever {
+            total.value = it
         }
 
         uploadSubCategory(selectedCategoryId)
@@ -119,6 +124,21 @@ class ProductListViewModel @Inject constructor(private val productDaoRepo: Produ
         }
     }
 
+    fun onClickAdd(productId:Int,userId:Int){
+        val requestProduct = ProductRequest(userId,productId)
+        viewModelScope.launch {
+            cartRepo.addProductToCart(requestProduct)
+        }
+    }
+
+    fun decreaseProduct(productId:Int){
+
+        val list = cartProduct.value ?: emptyList()
+        val matchedProduct = list.first { it.productID == productId }
+        viewModelScope.launch {
+            cartRepo.decreaseProductFromCart(matchedProduct.id)
+        }
+    }
 }
 
 
