@@ -1,6 +1,6 @@
 # BasicGetirCloneAndroid
+My first Android App
 
-# BasicGetirClone
 This app was made for the backend project I made using Spring boot and PostgreSQL.
 I made this app usingSwiftUI
 
