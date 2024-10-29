@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="cartFragment"
+            type="com.example.basicgetirclone.ui.cart.CartFragment" />
+        <variable
+            name="cartAdapter"
+            type="com.example.basicgetirclone.ui.cart.CartAdapter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.cart.CartFragment">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/cartToolbar"
+            android:layout_width="0dp"
+            app:title="Carts"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            app:titleTextColor="@color/white"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cartrcv"
+            android:layout_width="0dp"
+            android:layout_height="515dp"
+            android:adapter="@{cartAdapter}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cartToolbar" />
+
+        <Button
+            android:id="@+id/my_button"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+
+
+            android:layout_marginStart="48dp"
+            android:layout_marginBottom="73dp"
+            android:background="@color/primaryBackColor"
+            android:text="Contiıne"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/totalTxv"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="64dp"
+            android:layout_marginBottom="73dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/primaryBackColor"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/my_button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
