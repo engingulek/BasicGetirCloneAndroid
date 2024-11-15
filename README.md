@@ -2,7 +2,7 @@
 My first Android App
 
 This app was made for the backend project I made using Spring boot and PostgreSQL.
-I made this app usingSwiftUI
+
 
 <p><a href="https://github.com/engingulek/ForBasicGetirClone">API</a></p>
 ## Screens
